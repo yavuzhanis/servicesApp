@@ -1,0 +1,41 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+<div class="container-fluid bg-dark border border-black rounded" style="margin-top: 180px; width: fit-content;">
+    <h2 class='p-3 text-danger text-center '>Araç Görüntüle </h2>
+    <table  id="example" class='table table-striped' >
+        <thead>
+            <tr>
+                <th> ID : </th>
+                <th> Araç Muayene : </th>
+                <th> Adres : </th>
+                <th> Araç Plaka : </th>
+                <th> Araç Bakım : </th>
+                <th> Araç Lastik (sonTarih): </th>
+                <th> Araç Sigorta: </th>
+                <th> Araç Yetkinlik Belgesi: </th>
+                <th> SİL </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in arac %}
+            <tr>
+                <td>{{i.id}}</td>           
+                <td>{{i.vehicle_inspection}}</td>
+                <td>{{i.adress}}</td>
+                <td>{{i.car_plaka}}</td>
+                <td>{{i.vehicle_maintenance}}</td>
+                <td>{{i.vehicle_tire}}</td>
+                <td>{{i.vehicle_insurance}}</td>
+                <td>{{i.vehicle_license}}</td>
+                <td><a href="{% url 'arac_sil' i.id %}" onclick="return confirm ('Silmek istediğinize Emin Misiniz ? ')" class="btn btn-danger">SİL</a></td>
+               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>  
+{% endblock content %}
+

@@ -1,0 +1,32 @@
+{% include "base.html" %}
+{% include "navigation.html" %}
+{% load static %}
+{% block content %}
+{% if error == 'no' %}
+<script>
+    alert('Giriş Başarılı');
+    window.location = "{% url 'dashboard' %}";
+</script>
+{% endif %}
+{% if error == 'yes' %}
+<script>
+    alert('Hatalı Giriş Tekrar Deneyin');
+</script>
+{% endif %}
+
+
+
+<div class="container">
+    <h2 class="text-center">Kullanıcı Girişi</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Kullanıcı Adı :</label>
+        <input type="text" class="form-control" name="uname" />
+        <label>Kullanıcı Şifresi :</label>
+        <input type="password" name="pwd" class="form-control" />
+
+        <input type="submit" value="Login" class="form-control btn btn-danger mt-3  " />
+    </form>
+</div>
+
+{% endblock content %}

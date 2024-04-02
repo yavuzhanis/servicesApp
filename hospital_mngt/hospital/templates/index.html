@@ -1,0 +1,65 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+<style>
+    .mydivstyle:hover{
+        box-shadow: 10px 10px 20px 10px red;
+        transform: translateY(-10px);
+        text-decoration: none !important;
+    }
+    a{
+        text-decoration: none !important;
+    }
+    .rounded{
+        border-top: 10px solid  green;
+        border-radius: 5px;
+    }
+    .container{
+        background-color:white;
+        border: 5px solid transparent;
+        height: 300px;
+    }
+  
+</style>
+
+
+{% block content %}
+<h1 class="text-center mt-5 text-white">Kullanıcı Paneli</h1>
+<br> <br>
+
+<div class="container mt-5 ">
+    <div class="row mt-5">
+        <div class="col-sm-3 p-3 mydivstyle">
+            <h2 style="color: rgb(166, 13, 13);">{{v}}</h2>
+            <a href="{% url 'arac_goruntule' %}">
+                <h4 style="color: rgb(8, 8, 8);">Araçlar</h4>
+                <hr class="rounded">
+            </a>
+        </div>
+        <div class="col-sm-3 p-3 mydivstyle">
+            <h2 style="color: rgb(166, 13, 13);">{{d}}</h2>
+            <a href="{% url 'sofor_goruntule' %}">
+                <h4 style="color: rgb(3, 3, 3);">Sürücüler</h4>
+                <hr class="rounded">
+            </a>
+        </div>
+        <div class="col-sm-3 p-3 mydivstyle">
+            <h2 style="color: rgb(166, 13, 13);">{{a}}</h2>
+            <a href="{% url 'atama_goruntule' %}">
+                <h4 style="color: rgb(0, 0, 0);">Atamalar</h4>
+                <hr class="rounded ">
+            </a>
+        </div>
+        <div class="col-sm-3 p-3 mydivstyle">
+            <h2 style="color: rgb(166, 13, 13);">{{p}}</h2>
+            <a href="{% url 'puantaj_goruntule' %}">
+                <h4 style="color: rgb(0, 0, 0);">Puantaj</h4>
+                <hr class="rounded ">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

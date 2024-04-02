@@ -1,0 +1,45 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+
+{% if success_message %}
+<script>
+    alert('{{ success_message }}');
+    window.location = "{% url 'arac_goruntule' %}";
+</script>
+{% endif %}
+
+{% if error_message %}
+<script>
+    alert('{{ error_message }}');
+</script>
+{% endif %}
+
+
+<div class="container bg-dark p-3 rounded" style="margin-top: 180px; ">
+    <h2 class="text-center text-danger">Araç Ekle</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Araç Plaka:</label>
+        <input type="text" name="car_plaka" class="form-control" />
+        <label>Adres:</label>
+        <input type="text" name="adress" class="form-control" />
+        <label>Araç Bakım Tarihi:</label>
+        <input type="date" name="vehicle_maintenance" class="form-control" />
+        <label>Araç Lastik:</label>
+        <input type="date" name="vehicle_tire" class="form-control" />
+        <label>Araç Sigortası(sonTarih):</label>
+        <input type="date" name="vehicle_insurance" class="form-control" />
+        <label>Araç Yetkinlik Belgesi:</label>
+        <input type="text" name="vehicle_license" class="form-control" />
+        <label>Araç Muayenesi:</label>
+        <input type="date" name="vehicle_inspection" class="form-control" />
+
+        <input type="submit" value='submit' class="form-control btn btn-danger mt-3 z-index-1" id='aracEkle' />
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+
+{% if success_message %}
+<script>
+    alert('{{ success_message }}');
+    window.location = "{% url 'atama_goruntule' %}";
+</script>
+{% endif %}
+
+{% if error_message %}
+<script>
+    alert('{{ error_message }}');
+</script>
+{% endif %}
+
+
+<div class="container bg-dark border border-danger p-3" style="margin-top: 180px;">
+    <h2 class="text-center text-danger">Atama Ekle:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Şoför İsim :</label>
+        <select name='name' class='form-control'>
+            {% for i in driver %}
+            <option value='{{i.name}}'>{{i.name}}</option>
+            {% endfor %}
+        </select>
+        <label>Araç Plaka:</label>
+        <select name='car_plaka' class='form-control'>
+            {% for i in vehicle %}
+            <option value='{{i.car_plaka}}'>{{i.car_plaka}}</option>
+            {% endfor %}
+        </select>
+        <label>Adress : </label>
+        <input type="text" name="adress" class="form-control" />
+        <label>Araç Bakım : </label>
+        <input type="date" name="vehicle_inspection" class="form-control" />
+
+        <input type="submit" value='Submit' class="form-control btn btn-danger mt-3 z-index-1" id='aracEkle' />
+    </form>
+</div>
+
+{% endblock content %}
+

@@ -1,0 +1,55 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+{% if success_message %}
+<script>
+    alert('{{ success_message }}');
+    window.location = "{% url 'puantaj_goruntule' %}";
+</script>
+{% endif %}
+
+{% if error_message %}
+<script>
+    alert('{{ error_message }}');
+</script>
+{% endif %}
+
+<div class="container bg-dark p-3 rounded" style="margin-top: 180px;">
+    <h2 class="text-center text-danger">PuanTaj Ekle</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="car_plaka">Araç Plaka:</label>
+        <select name="car_plaka" class="form-control">
+            {% for vehicle in vehicles %}
+            <option value="{{ vehicle.car_plaka }}">{{ vehicle.car_plaka }}</option>
+            {% endfor %}
+        </select>
+        <label for="surucu">Şoför Adı:</label>
+        <select name="surucu" class="form-control">
+            {% for driver in drivers %}
+            <option value="{{ driver.name }}">{{ driver.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="date">Tarih:</label>
+        <input type="date" name="date" class="form-control" />
+        <label for="devir_bakiye">Devreden Bakiye:</label>
+        <input type="number" name="devir_bakiye" class="form-control" />
+        <label for="borc_bakiye">Borç Bakiye:</label>
+        <input type="number" name="borc_bakiye" class="form-control" />
+        <label for="alacak_bakiye">Alacak:</label>
+        <input type="number" name="alacak_bakiye" class="form-control" />
+        <label for="toplam_bakiye">Toplam Bakiye:</label>
+        <input type="number" name="toplam_bakiye" class="form-control" />
+        <label for="adress">Güzergah:</label>
+        <input type="text" name="adress" class="form-control" />
+
+        <input type="submit" value="Submit" class="form-control btn btn-danger mt-3 z-index-1" id="puantajEkle" />
+    </form>
+</div>
+
+
+
+{% endblock content %}

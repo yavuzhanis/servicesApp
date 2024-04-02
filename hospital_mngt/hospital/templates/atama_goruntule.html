@@ -1,0 +1,39 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+<div class="container-fluid bg-dark p-3" style="margin-top: 180px; width:1000px">
+    <h2 class='p-3 text-danger text-center '>Atama Görüntüle : </h2>
+    <table id="example" class='table table-striped'>
+        <thead>
+            <tr>
+                <th> ıd: </th>
+                <th> Şoför İsim : </th>
+                <th> Araç Plaka : </th>
+                <th> Araç Bakım : </th>
+                <th> Adress : </th>
+                <th> SİL </th>  
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in a %} <!-- Döngü değişkenini 'driver' olarak kullanıyoruz -->
+            <tr>
+                <td> {{ i.id }} </td>
+                <td>{{ i.surucu }}</td>
+                <td>{{ i.car_plaka }}</td>
+                <td>{{ i.vehicle_inspection }}</td>
+                <td>{{ i.adress }}</td>
+                <td><a href="{% url 'atama_sil' i.id %}"
+                        onclick="return confirm ('Silmek istediğinize Emin Misiniz ? ')"
+                        class="btn btn-danger">SİL</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
+

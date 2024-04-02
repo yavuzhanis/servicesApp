@@ -1,0 +1,77 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between;">
+        <div style="width: 48%;">
+            {% for plaka, monthly_data in calculated_data.items %}
+                <h3 style="color: black;">{{ plaka }} için Aylık Servis Sayıları</h3>
+                <canvas id="chart_{{ forloop.counter }}" width="400" height="90"></canvas>
+                <script>
+                    var ctx = document.getElementById("chart_{{ forloop.counter }}").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for month_year, service_count in monthly_data.items %}"{{ month_year }}",{% endfor %}],
+                            datasets: [{
+                                label: 'Aylık Servis Sayısı',
+                                data: [{% for month_year, service_count in monthly_data.items %}{{ service_count }},{% endfor %}],
+                                backgroundColor: 'rgba(233, 100, 121, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    color:'white',
+                                }
+                            }
+                        }
+                    });
+                </script>
+            {% endfor %}
+        </div>
+        <div style="width: 48%;">
+            <h3 style="color: black;">Veri Tablosu</h3>
+            <table id="puantaj_table" border="1">
+                <thead>
+                    <tr>
+                        <th>Plaka</th>
+                        <th>Ay</th>
+                        <th>Servis Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plaka, monthly_data in calculated_data.items %}
+                        {% for month_year, service_count in monthly_data.items %}
+                            <tr>
+                                <td>{{ plaka }}</td>
+                                <td>{{ month_year }}</td>
+                                <td>{{ service_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // DataTable oluşturma
+            var table = $('#puantaj_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf'
+                ]
+            } );
+        } );
+    </script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+{% block content %}
+<div class="container-fluid bg-dark border border-black rounded" style="margin-top: 180px; width: fit-content;">
+    <h2 class="p-3 text-danger text-center">Puantaj Görüntüle:</h2>
+    <table id="puantaj_table" class='table table-striped'>
+        <thead>
+            <tr>
+                <th>ID:</th>
+                <th>Araç Plaka:</th>
+                <th>Şoför Adı:</th>
+                <th>Tarih:</th>
+                <th>Devir Bakiye:</th>
+                <th>Borç Bakiye:</th>
+                <th>Alacak Bakiye:</th>
+                <th>Toplam Bakiye:</th>
+                <th>Güzergah:</th>
+                <th>SİL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for puantaj in puantajlar %}
+            <tr>
+                <td>{{ puantaj.id }}</td>
+                <td>{{ puantaj.car_plaka }}</td>
+                <td>{{ puantaj.surucu }}</td>
+                <td>{{ puantaj.date }}</td>
+                <td>{{ puantaj.devir_bakiye }}</td>
+                <td>{{ puantaj.borc_bakiye }}</td>
+                <td>{{ puantaj.alacak_bakiye }}</td>
+                <td>{{ puantaj.toplam_bakiye }}</td>
+                <td>{{ puantaj.adress }}</td>
+                <td><a href="{% url 'puantaj_sil' puantaj.id %}"
+                        onclick="return confirm('Silmek istediğinize Emin Misiniz ? ')" class="btn btn-danger">SİL</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Grafiği oluşturmak için canvas elementi -->
+<canvas id="myChart" width="200" height="50"></canvas>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // DataTable oluşturma
+        var table = $('#puantaj_table').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf'
+            ]
+        } );
+    } );
+</script>
+
+{% endblock content %}

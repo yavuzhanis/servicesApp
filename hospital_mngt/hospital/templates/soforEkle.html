@@ -1,0 +1,37 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+
+{% if error == 'no' %}
+<script>
+    alert('save in successfully');
+    window.location = "{% url 'sofor_goruntule' %}";
+</script>
+{% endif %}
+{% if error == 'yes' %}
+<script>
+    alert('invalid login try to again');
+</script>
+{% endif %}
+
+
+
+<div class="container  bg-dark p-3 rounded " style="margin-top: 180px;">
+    <h2 class="text-center">Sürücü Ekle</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>İsim</label>
+        <input type="text" class="form-control" name="name" />
+        <label>Soyisim</label>
+        <input type="text" name="surname" class="form-control" />
+        <label>Telefon</label>
+        <input type="text" name="mobile" class="form-control" />
+
+        <input type="submit" value="Ekle" class="form-control btn btn-danger mt-3  " />
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% include "base.html" %}
+{% load static %}
+{% include "navigation.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid bg-dark border border-black rounded" style="margin-top: 180px; width: fit-content;">
+    <!-- Grafik alanı -->
+    <canvas id="myChart" width="1000" height="500"></canvas>
+</div>
+<script>
+$(document).ready(function() {
+    // Grafik verilerini JSON'dan al
+    var chart_data = {{ chart_data|safe }};
+
+    // Chart.js ile grafik oluşturma
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chart_data.dates,
+            datasets: [{
+                label: 'Günlük Toplam Bakiye',
+                data: chart_data.totalBalances,
+                backgroundColor: 'rgba(255, 48, 48,0.6)',
+                borderColor: 'rgba(248, 248, 255, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color:'white'
+                    },
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

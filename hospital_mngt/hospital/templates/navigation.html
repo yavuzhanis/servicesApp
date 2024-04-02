@@ -1,0 +1,65 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Servis Takip Sistemi</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-3 mb-lg-0">
+        {% if not request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_login' %}">Giriş Yap</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}">Panel</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sürücü
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'sofor_goruntule' %}">Sürücü Görüntüle</a></li>
+            <li><a class="dropdown-item" href="{% url 'soforEkle' %}">Sürücü Ekle</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Araç
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'arac_goruntule' %}">Araç Görüntüle</a></li>
+            <li><a class="dropdown-item" href="{% url 'arac_ekle'%}">Araç Ekle</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atama
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'atama_goruntule' %}">Atama Görüntüle</a></li>
+            <li><a class="dropdown-item" href="{% url 'atama_ekle'%}">Atama Ekle</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            PuanTaj
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'puantaj_goruntule' %}">PuanTaj Görüntüle</a></li>
+            <li><a class="dropdown-item" href="{% url 'puantaj_ekle' %}">PuanTaj Ekle</a></li>
+            <li><a class="dropdown-item" href="{% url 'grafik_view' %}"> Tablo Görüntüle</a></li>
+            <li><a class="dropdown-item" href="{% url 'plaka_tablo' %}"> Plaka Tablosu</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_logout' %}">Çıkış Yap</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
